@@ -1,0 +1,5 @@
+$Products = DB::select("call sp_list_edit_product(".$id.")");
+
+      return view('admin.slider')
+            // ->with(compact('menu'))
+            ->with(compact('slider_'));

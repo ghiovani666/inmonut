@@ -1,0 +1,59 @@
+$Products = DB::select("call sp_list_edit_product(".$id.")");
+
+      return view('admin.slider')
+            // ->with(compact('menu'))
+            ->with(compact('slider_'));
+
+
+========================SETTING============
+5iZ=0y~hi4KA
+hellotr8_laravel
+
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+
+https://activelife.pe/contacto/
+https://www.sportlifeperu.com/zona-de-talentos/
+
+:::::::::::::::::::::::::GOUP BY :::::::::::::::::::::::::::::::::
+  $rowData_ = DB::table('servicio_training')->get();
+        $rowData_titulo = DB::table('servicio_training_titulo')->get();
+        $rowData_opciones = DB::table('servicio_training_titulo')->join('servicio_training_descripcion', 'servicio_training_titulo.id_titulo', '=', 'servicio_training_descripcion.id_titulo')->where('servicio_training_descripcion.id_servicio', '=', 1)->get()->toArray();
+
+        $result = array();
+        foreach ($rowData_opciones as $element) {
+            $result[$element->titulo_principal][] =  [
+                "id_titulo"=>$element->id_titulo,
+                "titulo_principal"=>$element->titulo_principal,
+                "title"=>$element->title,
+                "descripcion"=>$element->descripcion,
+                "url_image"=>$element->url_image,
+                "url_link"=>$element->url_link,
+            ];
+        }
+
+        // foreach ($result as $key => $value) {
+        //     var_dump($key);
+        //     foreach ($value as $key_ => $value_) {
+        //         # code...
+        //         var_dump($value_["title"]);
+        //     }
+        // }
+        // exit;
+
+        :::::::::::::::::::::datatable::::::::::::::::::
+        https://fahmidasclassroom.com/laravel-7-crud-using-datatables/
+        composer require yajra/laravel-datatables-oracle:"~9.0"
+        
