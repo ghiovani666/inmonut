@@ -51,7 +51,7 @@
                           <li class="nav-item">
                               <a href="slider" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>Slider && Footer</p>
+                                  <p>Slider & Footer</p>
                               </a>
                           </li>
                           <li class="nav-item">
@@ -76,6 +76,8 @@
 
                       </ul>
                   </li>
+
+
                   <li class="nav-item">
                       <a href="#" class="nav-link">
                           <i class="nav-icon fas fa-copy"></i>
@@ -126,40 +128,8 @@
 
                       </ul>
                   </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-copy"></i>
-                          <p> Novedades<i class="fas fa-angle-left right"></i> </p>
-                      </a>
-                      <ul class="nav nav-treeview">
 
-                          <li class="nav-item">
-                              <a href="novedadEvento" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Eventos</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="novedadBono" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Bonos</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="novedadNoticia" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Noticias</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="novedadReto" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Retos</p>
-                              </a>
-                          </li>
-
-                      </ul>
-                  </li>
+                  
               </ul>
           </nav>
           @else
