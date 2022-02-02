@@ -156,9 +156,10 @@ class HomeController extends Controller {
             case 'fitness': 
       
               if($file){
-
                 $url_imagen =  DB::table('web_home')->where('id_home', '=', $request->txt_id_home)->get();
-                             
+                var_dump( $url_imagen[0]->url_image);
+                exit();
+              
                 if(file_exists(str_replace('/template_admin/', 'template_admin/',  $url_imagen[0]->url_image))){
                     unlink(str_replace('/template_admin/', 'template_admin/',  $url_imagen[0]->url_image));
                   }

@@ -155,40 +155,6 @@ function openModal(txt_id_home, isClass) {
     obtenerDatosModal(txt_id_home, isClass)
 }
 
-$('#uploadForm').on('submit', function (e) {
-    e.preventDefault();
-    $('#exampleModal').modal('hide')
-    let formData = new FormData(this);
-    axios.post('dashboard_home_actualizar_imagen',
-        formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    }
-    ).then(function (response) {
-        $('#imagen_' + response.data[1]).html(response.data[0]);
-    }).catch(function () {
-        console.log('FAILURE!!');
-    });
-
-});
-
-const obtenerDatosModal = (txt_id_home, isClass) => {
-    $('input[name=txt_id_home]').val(txt_id_home);
-    axios.post('dashboard_home_edit_imagen', {
-        'txt_id_home': txt_id_home,
-        'txt_isclass': isClass,
-    })
-        .then(function (response) {
-            $('textarea[name=txt_titulo1]').val(response.data[0].title1);
-            $('textarea[name=txt_titulo2]').val(response.data[0].title2);
-        }).catch(function (error) {
-            if (error.response.status) {
-                alert('No existe ..! Gracias1')
-            }
-        })
-}
-
 // :::::::::::::::::::::::: CREAR REGISTRO ::::::::::::::::
 $('#formServicioTitulo').on('submit', function(e) {
     e.preventDefault();

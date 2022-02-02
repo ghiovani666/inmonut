@@ -354,7 +354,6 @@ $('#uploadFormServicios').on('submit', function(e) {
 $('#saveServiciosTrainingNovedad').on('submit', function(e) {
     e.preventDefault();
     let formData = new FormData(this);
-    console.log(formData);
     axios.post('saveServiciosNovedad',
         formData, {
             headers: {

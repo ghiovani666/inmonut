@@ -157,8 +157,12 @@ class HomeController extends Controller {
       
               if($file){
 
+                dd($request->txt_id_home);
+                exit();
+
                 $url_imagen =  DB::table('web_home')->where('id_home', '=', $request->txt_id_home)->get();
-                             
+               
+              
                 if(file_exists(str_replace('/template_admin/', 'template_admin/',  $url_imagen[0]->url_image))){
                     unlink(str_replace('/template_admin/', 'template_admin/',  $url_imagen[0]->url_image));
                   }

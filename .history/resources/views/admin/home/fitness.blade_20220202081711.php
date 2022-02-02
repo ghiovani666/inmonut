@@ -149,66 +149,26 @@
 
 @push('scripts')
 <script>
-
-function openModal(txt_id_home, isClass) {
-    $('#exampleModal').modal('show')
-    obtenerDatosModal(txt_id_home, isClass)
-}
-
-$('#uploadForm').on('submit', function (e) {
+// :::::::::::::::::::::::: CREAR REGISTRO ::::::::::::::::
+$('#formServicioTitulo').on('submit', function (e) {
     e.preventDefault();
-    $('#exampleModal').modal('hide')
+    $('#modalTitulo').modal('hide')
     let formData = new FormData(this);
-    axios.post('dashboard_home_actualizar_imagen',
+    axios.post('servicioGrabarTitulo',
         formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
     }
     ).then(function (response) {
-        $('#imagen_' + response.data[1]).html(response.data[0]);
-    }).catch(function () {
-        console.log('FAILURE!!');
-    });
-
-});
-
-const obtenerDatosModal = (txt_id_home, isClass) => {
-    $('input[name=txt_id_home]').val(txt_id_home);
-    axios.post('dashboard_home_edit_imagen', {
-        'txt_id_home': txt_id_home,
-        'txt_isclass': isClass,
-    })
-        .then(function (response) {
-            $('textarea[name=txt_titulo1]').val(response.data[0].title1);
-            $('textarea[name=txt_titulo2]').val(response.data[0].title2);
-        }).catch(function (error) {
-            if (error.response.status) {
-                alert('No existe ..! Gracias1')
-            }
-        })
-}
-
-// :::::::::::::::::::::::: CREAR REGISTRO ::::::::::::::::
-$('#formServicioTitulo').on('submit', function(e) {
-    e.preventDefault();
-    $('#modalTitulo').modal('hide')
-    let formData = new FormData(this);
-    axios.post('servicioGrabarTitulo',
-        formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }
-    ).then(function(response) {
         if (response.data.state == "error") {
             $('#msj_alert__').html(
-                    '<div class="alert alert-danger" role="alert">' + response.data.data + '</div>')
+                '<div class="alert alert-danger" role="alert">' + response.data.data + '</div>')
                 .fadeOut(9500);
         } else {
             $('#msj_alert__').html(
-                    '<div class="alert alert-success" role="alert">' + response.data.data + '</div>'
-                )
+                '<div class="alert alert-success" role="alert">' + response.data.data + '</div>'
+            )
                 .fadeOut(9500);
             if (response.data.src) {
                 $('img[name=txt_url_image]').attr('src', response.data.src);
@@ -217,7 +177,7 @@ $('#formServicioTitulo').on('submit', function(e) {
             listarDataTableTitulo()
         }
 
-    }).catch(function() {
+    }).catch(function () {
         console.log('FAILURE!!');
     });
 
@@ -231,7 +191,7 @@ function listarDataTableTitulo() {
         dataType: 'html',
         url: 'listarDataTableTitulo',
         data: "txt_apertura=" + 1,
-        success: function(response) {
+        success: function (response) {
             $('#dataTableTitulo').html(response);
         }
     });
@@ -250,24 +210,24 @@ function openModalTitulo(id_titulo, isValues) {
             formData.append('isValues', isValues)
             axios.post('servicioGrabarTitulo',
                 formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
-            ).then(function(response) {
+            }
+            ).then(function (response) {
                 if (response.data.state == "error") {
                     $('#msj_alert__').html(
-                            '<div class="alert alert-danger" role="alert">' + response.data.data + '</div>')
+                        '<div class="alert alert-danger" role="alert">' + response.data.data + '</div>')
                         .fadeOut(9500);
                 } else {
                     $('#msj_alert__').html(
-                            '<div class="alert alert-success" role="alert">' + response.data.data + '</div>'
-                        )
+                        '<div class="alert alert-success" role="alert">' + response.data.data + '</div>'
+                    )
                         .fadeOut(9500);
-                    listarDataTableTitulo()
+                        listarDataTableTitulo()
                 }
 
-            }).catch(function() {
+            }).catch(function () {
                 console.log('FAILURE!!');
             });
         }
@@ -288,20 +248,21 @@ function openModalTitulo(id_titulo, isValues) {
             formData.append('txt_id_titulo', id_titulo)
             axios.post('servicioEditarTitulo',
                 formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
-            ).then(function(response) {
+            }
+            ).then(function (response) {
 
                 $('select[name=txt_id_servicio]').val(response.data[0].id_servicio);
                 $('input[name=txt_titulo_principal]').val(response.data[0].titulo_principal);
 
-            }).catch(function() {
+            }).catch(function () {
                 console.log('FAILURE!!');
             });
         }
     }
 }
+
 </script>
 @endpush

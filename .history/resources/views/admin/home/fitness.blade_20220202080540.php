@@ -65,15 +65,18 @@
                                     <h6>{{$rows->title1}}</h5>
                                         <h6>{{$rows->title2}}</h5>
                                 </div>
+
+                        
+                                    <a href="javascript:void(0)" onclick="openModal({{ $rows->id_home }},'fitness' )"
+                                        class="btn btn-danger btn-sm"><i class="far fa-thumbs-up"></i> Subir Imagen</a>
+                         
+
                                 <div class="card-img-overlay d-flex flex-column justify-content-end"
                                     style="margin-bottom: 45px;">
                                     <a href="/template_admin/img/modelo/{{ $rows->id_home }}.jpg"
                                         class="btn btn-primary btn-sm" download><i class="far fa-thumbs-up"></i>
                                         Descargar {{ $rows->id_home }}</a>
                                 </div>
-
-                                <a href="javascript:void(0)" onclick="openModal({{ $rows->id_home }},'fitness' )"
-                                    class="btn btn-danger btn-sm"><i class="far fa-thumbs-up"></i> Subir Imagen</a>
 
                             </div>
                         </div>
@@ -145,163 +148,3 @@
 
 
 @endsection
-
-
-@push('scripts')
-<script>
-
-function openModal(txt_id_home, isClass) {
-    $('#exampleModal').modal('show')
-    obtenerDatosModal(txt_id_home, isClass)
-}
-
-$('#uploadForm').on('submit', function (e) {
-    e.preventDefault();
-    $('#exampleModal').modal('hide')
-    let formData = new FormData(this);
-    axios.post('dashboard_home_actualizar_imagen',
-        formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    }
-    ).then(function (response) {
-        $('#imagen_' + response.data[1]).html(response.data[0]);
-    }).catch(function () {
-        console.log('FAILURE!!');
-    });
-
-});
-
-const obtenerDatosModal = (txt_id_home, isClass) => {
-    $('input[name=txt_id_home]').val(txt_id_home);
-    axios.post('dashboard_home_edit_imagen', {
-        'txt_id_home': txt_id_home,
-        'txt_isclass': isClass,
-    })
-        .then(function (response) {
-            $('textarea[name=txt_titulo1]').val(response.data[0].title1);
-            $('textarea[name=txt_titulo2]').val(response.data[0].title2);
-        }).catch(function (error) {
-            if (error.response.status) {
-                alert('No existe ..! Gracias1')
-            }
-        })
-}
-
-// :::::::::::::::::::::::: CREAR REGISTRO ::::::::::::::::
-$('#formServicioTitulo').on('submit', function(e) {
-    e.preventDefault();
-    $('#modalTitulo').modal('hide')
-    let formData = new FormData(this);
-    axios.post('servicioGrabarTitulo',
-        formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }
-    ).then(function(response) {
-        if (response.data.state == "error") {
-            $('#msj_alert__').html(
-                    '<div class="alert alert-danger" role="alert">' + response.data.data + '</div>')
-                .fadeOut(9500);
-        } else {
-            $('#msj_alert__').html(
-                    '<div class="alert alert-success" role="alert">' + response.data.data + '</div>'
-                )
-                .fadeOut(9500);
-            if (response.data.src) {
-                $('img[name=txt_url_image]').attr('src', response.data.src);
-            }
-
-            listarDataTableTitulo()
-        }
-
-    }).catch(function() {
-        console.log('FAILURE!!');
-    });
-
-});
-
-
-function listarDataTableTitulo() {
-
-    $.ajax({
-        type: 'get',
-        dataType: 'html',
-        url: 'listarDataTableTitulo',
-        data: "txt_apertura=" + 1,
-        success: function(response) {
-            $('#dataTableTitulo').html(response);
-        }
-    });
-
-}
-
-listarDataTableTitulo()
-
-function openModalTitulo(id_titulo, isValues) {
-
-    if (isValues == "ELIMINAR") {
-
-        if (confirm('Esta seguro de Eliminar?')) {
-            let formData = new FormData();
-            formData.append('txt_id_titulo', id_titulo)
-            formData.append('isValues', isValues)
-            axios.post('servicioGrabarTitulo',
-                formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-            ).then(function(response) {
-                if (response.data.state == "error") {
-                    $('#msj_alert__').html(
-                            '<div class="alert alert-danger" role="alert">' + response.data.data + '</div>')
-                        .fadeOut(9500);
-                } else {
-                    $('#msj_alert__').html(
-                            '<div class="alert alert-success" role="alert">' + response.data.data + '</div>'
-                        )
-                        .fadeOut(9500);
-                    listarDataTableTitulo()
-                }
-
-            }).catch(function() {
-                console.log('FAILURE!!');
-            });
-        }
-
-    } else {
-
-        $('#modalTitulo').modal('show')
-        $('input[name=txt_id_titulo]').val(id_titulo)
-        $('input[name=isValues]').val(isValues) //OPCION DE CREAR, ACTUALIZAR
-
-        if (isValues == 'CREAR') {
-            //LIMPIAR
-            $('input[name=txt_titulo_principal]').val("");
-        }
-
-        if (id_titulo) {
-            let formData = new FormData();
-            formData.append('txt_id_titulo', id_titulo)
-            axios.post('servicioEditarTitulo',
-                formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-            ).then(function(response) {
-
-                $('select[name=txt_id_servicio]').val(response.data[0].id_servicio);
-                $('input[name=txt_titulo_principal]').val(response.data[0].titulo_principal);
-
-            }).catch(function() {
-                console.log('FAILURE!!');
-            });
-        }
-    }
-}
-</script>
-@endpush

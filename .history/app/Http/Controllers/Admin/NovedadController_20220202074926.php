@@ -33,22 +33,30 @@ public function novedadReto() {
 
 public function saveServiciosNovedad(Request $request) 
 {       
-  
-      try {
-        DB::table('web_novedad')
-        ->where("id_servicio",$request->txt_values)
-        ->update([
-          'superior_titulo1' => $request->superior_titulo1,
-          'superior_titulo2' => $request->superior_titulo2,
-          'inferior_titulo' => $request->inferior_titulo,
-          'inferior_descripcion' => $request->inferior_descripcion,
-          'inferior_url_image' => $request->inferior_url_image
-        ]); 
+  var_dump( $request->superior_titulo1);
+        if($request->inferior_url_image==null || $request->inferior_url_image==''){
+            DB::table('web_novedad')
+            ->where("id_servicio",$request->txt_values)
+            ->update([
+              'superior_titulo1' => $request->superior_titulo1,
+              'superior_titulo2' => $request->superior_titulo2,
+              'inferior_titulo' => $request->inferior_titulo,
+              'inferior_descripcion' => $request->inferior_descripcion,
+              
+              
+            ]); 
+          }else{
+            DB::table('web_novedad')
+            ->where("id_servicio",$request->txt_values)
+            ->update([
+              'superior_titulo1' => $request->superior_titulo1,
+              'superior_titulo2' => $request->superior_titulo2,
+              'inferior_titulo' => $request->inferior_titulo,
+              'inferior_descripcion' => $request->inferior_descripcion,
+              'inferior_url_image' => $request->inferior_url_image,
+            ]); 
+          }
 
-        dd( $request->txt_values);
-      } catch (\Throwable $th) {
-        //throw $th;
-  }
         return back()->with('message','Se Actualizo');
 }
 

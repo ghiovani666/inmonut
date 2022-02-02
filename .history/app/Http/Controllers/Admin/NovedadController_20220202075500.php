@@ -33,8 +33,7 @@ public function novedadReto() {
 
 public function saveServiciosNovedad(Request $request) 
 {       
-  
-      try {
+
         DB::table('web_novedad')
         ->where("id_servicio",$request->txt_values)
         ->update([
@@ -42,13 +41,9 @@ public function saveServiciosNovedad(Request $request)
           'superior_titulo2' => $request->superior_titulo2,
           'inferior_titulo' => $request->inferior_titulo,
           'inferior_descripcion' => $request->inferior_descripcion,
-          'inferior_url_image' => $request->inferior_url_image
+          'inferior_url_image' => $request->inferior_url_image,
         ]); 
 
-        dd( $request->txt_values);
-      } catch (\Throwable $th) {
-        //throw $th;
-  }
         return back()->with('message','Se Actualizo');
 }
 
